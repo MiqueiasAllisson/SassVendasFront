@@ -22,6 +22,23 @@ Abre em `http://localhost:5173`. Suba a API antes — em desenvolvimento o Vite
 faz proxy de `/api` para `http://localhost:3333`, de modo que o cookie
 `httpOnly` do refresh token trafega na mesma origem.
 
+## Produção
+
+```bash
+npm run build
+npm start
+```
+
+`npm start` serve o `dist/` com `serve -s`, que respeita a variável `PORT` da
+plataforma. O `-s` liga o **fallback de SPA**: sem ele, recarregar a página em
+`/entrar` devolve 404, porque esse caminho só existe no roteador do React —
+não há arquivo correspondente no disco.
+
+`vite preview` não serve para isso: é ferramenta de conferência do build local.
+
+Em produção **não existe o proxy do `/api`**: `VITE_API_URL` precisa apontar
+para a URL absoluta da API.
+
 ---
 
 ## Estrutura
