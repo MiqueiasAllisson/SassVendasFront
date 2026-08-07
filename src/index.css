@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   TOKENS DE DESIGN
+   Valores em canais RGB (sem `rgb()`) para o Tailwind poder aplicar opacidade.
+   Trocar a identidade visual do produto = editar este bloco.
+   A cor da empresa selecionada no login sobrescreve --brand-* em runtime
+   (ver src/lib/theme.ts).
+   ========================================================================== */
+@layer base {
+  :root {
+    /* Marca — azul de trabalho, legível em tela de galpão e sob luz forte */
+    --brand-50: 239 246 255;
+    --brand-100: 219 234 254;
+    --brand-200: 191 219 254;
+    --brand-300: 147 197 253;
+    --brand-400: 96 165 250;
+    --brand-500: 59 130 246;
+    --brand-600: 31 111 235;
+    --brand-700: 29 78 216;
+    --brand-800: 30 64 175;
+    --brand-900: 30 58 138;
+
+    /* Superfícies e texto */
+    --surface: 255 255 255;
+    --surface-muted: 248 250 252;
+    --surface-sunken: 241 245 249;
+    --line: 226 232 240;
+    --content: 15 23 42;
+    --content-muted: 71 85 105;
+    --content-subtle: 148 163 184;
+
+    /* Status do próximo contato (RN-03) */
+    --status-late: 220 38 38;
+    --status-today: 234 179 8;
+    --status-scheduled: 37 99 235;
+    --status-none: 148 163 184;
+
+    --danger: 220 38 38;
+    --success: 22 163 74;
+    --warning: 217 119 6;
+  }
+
+  :root[data-theme='dark'] {
+    --surface: 15 23 42;
+    --surface-muted: 30 41 59;
+    --surface-sunken: 2 6 23;
+    --line: 51 65 85;
+    --content: 241 245 249;
+    --content-muted: 148 163 184;
+    --content-subtle: 100 116 139;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-surface-muted text-content antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Foco visível e consistente — acessibilidade de teclado sem CSS por
+     componente. */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    @apply outline-none ring-2 ring-brand-500/60 ring-offset-2 ring-offset-surface;
+  }
+
+  /* Remove os botões de incremento e o ícone de senha nativo do Edge, que
+     conflitam com o botão "mostrar senha". */
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none;
+  }
+}
+
+@layer components {
+  .field-label {
+    @apply mb-1.5 block text-sm font-medium text-content;
+  }
+
+  .field-hint {
+    @apply mt-1.5 text-xs text-content-muted;
+  }
+
+  .field-error {
+    @apply mt-1.5 flex items-start gap-1.5 text-xs font-medium text-danger;
+  }
+}
